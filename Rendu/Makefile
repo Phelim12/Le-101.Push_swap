@@ -17,25 +17,44 @@ CC = gcc
 
 NAME = checker
 
+NAME_CHK = checker
+
+NAME_PSW = push_swap
+
 C_FLAGS = -Wall -Wextra -Werror 
 
 DIR_INC = Includes/
 
-DIR_SRC = Sources/
-
 DIR_LIB = Libft/
 
-NAME_SRC = main_push_swap.c
+DIR_CHK = Checker_src/
 
-SRC =	$(addprefix $(DIR_SRC), $(NAME_SRC))
+DIR_PSW = Push_swap_src/
 
-OBJ =	$(SRC:.c=.o)
+CHK_SRC = checking_checker.c fill_checker.c main_checker.c tools_checker.c \
+		  operation1_checker.c operation2_checker.c 
+
+PSW_SRC =	fill_pushswap.c main_pushswap.c operation1_pushswap.c \
+			operation2_pushswap.c tools_pushswap.c
+
+SRC_CHK = $(addprefix $(DIR_CHK), $(CHK_SRC))
+
+SRC_PSW = $(addprefix $(DIR_PSW), $(PSW_SRC))
+
+SRC = $(addprefix $(DIR_CHK), $(CHK_SRC)) $(addprefix $(DIR_PSW), $(PSW_SRC))
+
+OBJ_CHK = $(SRC_CHK:.c=.o)
+
+OBJ_PSW = $(SRC_PSW:.c=.o) 
+
+OBJ = $(SRC:.c=.o) 
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(DIR_LIB)
-	@$(CC) $(C_FLAGS) $(OBJ) -L $(DIR_LIB) -lft -o $(NAME) 
+	@$(CC) $(C_FLAGS) $(OBJ_PSW) -L $(DIR_LIB) -lft -o $(NAME_PSW) 
+	@$(CC) $(C_FLAGS) $(OBJ_CHK) -L $(DIR_LIB) -lft -o $(NAME_CHK)	
 	@echo "\033[0;32m✅️   make checker.\033[0m"
 
 ./%.o: ./%.c
@@ -49,7 +68,8 @@ clean:
 
 fclean: clean
 	@make fclean -C $(DIR_LIB)
-	@rm -f $(NAME)
+	@rm -f $(NAME_CHK)
+	@rm -f $(NAME_PSW)
 	@echo "\033[38;5;196m🗑️   fclean checker.\033[0m" 
 
 re: fclean all
