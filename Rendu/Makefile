@@ -21,7 +21,7 @@ NAME_CHK = checker
 
 NAME_PSW = push_swap
 
-C_FLAGS = -Wall -Wextra -Werror 
+C_FLAGS =  
 
 DIR_INC = Includes/
 

@@ -48,7 +48,7 @@ void	ft_swap_b(int **stack)
 {
 	int swap;
 	int	end;
-
+	
 	end = (stack[B][0] - 1);
 	swap = stack[B][end];
 	stack[B][end] = stack[B][end - 1];
