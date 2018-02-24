@@ -68,3 +68,33 @@ void	ft_rev_stack(int **stack)
 		end--;
 	}
 }
+
+int		**ft_dup_stack(int **stack)
+{
+	int **ret;
+	int y;
+
+	ret = (int **)malloc(sizeof(int *) * (2));
+	ret[A] = (int *)malloc(sizeof(int) * (stack[A][0] + 2));
+	ret[B] = (int *)malloc(sizeof(int) * (stack[A][0] + 2));
+	y = -1;
+	while (++y < stack[A][0])
+		ret[A][y] = stack[A][y];
+	y = -1;
+	while (++y < stack[B][0])
+		ret[B][y] = stack[B][y];
+	return (ret);
+}
+
+void	ft_cpy_stack(int **stack, int **stack_cpy)
+{
+	int y;
+
+	y = -1;
+	while (++y < stack[A][0])
+		stack_cpy[A][y] = stack[A][y];
+	y = -1;
+	while (++y < stack[B][0])
+		stack_cpy[B][y] = stack[B][y];
+}
+
