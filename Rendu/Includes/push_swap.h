@@ -14,19 +14,12 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# define MAXI 2147483647
 # define MINI -2147483648
-# define OP1 "pa"
-# define OP2 "pb"
-# define OP3 "sa"
-# define OP4 "sb"
-# define OP5 "ra"
-# define OP6 "rb"
-# define OP7 "rra"
-# define OP8 "rrb"
-# define OPA "ss"
-# define OPB "rr"
-# define OPC "rrr"
+# define MAXI 2147483647
+# define ENDA (stack[A][0] - 1)
+# define ENDB (stack[B][0] - 1)
+# define SA (stack[A])
+# define SB (stack[B])
 # define A 0
 # define B 1
 # define C 2
@@ -37,11 +30,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct	s_ps
+typedef	struct 	s_sa
 {
-	int		**grps;
-	int		mid;
-}				t_ps;
+	int min;
+	int	mid;
+	int	max;
+}				t_sa;
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -94,5 +88,21 @@ void		ft_rot_a(int **stack);
 void		ft_rot_b(int **stack);
 void		ft_revrot_a(int **stack);
 void		ft_revrot_b(int **stack);
+
+
+int		ft_check_place_d(int **stack, int **grps);
+int		ft_check_place_c(int **stack, int **grps);
+int		ft_check_place_b(int **stack, int **grps);
+int		ft_check_place_a(int **stack, int **grps);
+int		ft_check_place(int **stack, int **grps);
+int		**ft_dup_stack(int **stack);
+void	ft_cpy_stack(int **stack, int **stack_cpy);
+int		ft_check_group(int *group, int nb);
+void	ft_sort_list(int *list, int size);
+int		**ft_good_cur(int size, int size_cur);
+int		**ft_fill_grps(int **stack, int *list);
+int		**ft_params_push_swap(int **stack);
+
+
 
 #endif

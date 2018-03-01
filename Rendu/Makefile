@@ -34,8 +34,8 @@ DIR_PSW = Push_swap_src/
 CHK_SRC = checking_checker.c fill_checker.c main_checker.c tools_checker.c \
 		  operation1_checker.c operation2_checker.c 
 
-PSW_SRC =	fill_pushswap.c main_pushswap.c operation1_pushswap.c \
-			operation2_pushswap.c tools_pushswap.c
+PSW_SRC = 	fill_pushswap.c groups_algo.c main_pushswap.c \
+			operation1_pushswap.c operation2_pushswap.c tools_pushswap.c
 
 SRC_CHK = $(addprefix $(DIR_CHK), $(CHK_SRC))
 
