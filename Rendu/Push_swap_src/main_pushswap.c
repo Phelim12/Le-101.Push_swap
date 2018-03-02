@@ -111,36 +111,26 @@ void	ft_split_sa(int **stack, int *mid)
 
 	cur = 1;
 	info = ft_search_not_rank(stack[A], mid, A);
-	/*printf("MID = %d\n", info.mid);
-	printf("MIN = %d\n", info.min);
-	sleep(2);*/
 	while (ft_check_end_split(stack[A], info, A))
 	{
-		if (SA[ENDA] >= info.min && SA[ENDA] < info.mid)
+		if ((SA[ENDA] >= info.min && SA[ENDA] < info.mid) || SA[ENDA] == (SB[ENDB] + 1))
 			ft_modif_stack(stack, 2);
 		else
 			ft_modif_stack(stack, 5);
-		if (SB[0] > 3 && SB[ENDB] < SB[ENDB - 1] && SB[ENDB] > SB[ENDB - 2])
-			ft_modif_stack(stack, 4);
-		if (SB[0] > 2 && SB[ENDB] < SB[1] && SA[ENDA] >= info.mid)
-			ft_modif_stack(stack, 10);
-		//sleep(2);
 	}
 }
 
-int		ft_opti_test(int **stack)
+int		ft_check_order(int **stack)
 {
 	int cur;
 
-	cur = 1;
-	//ft_print_stack(stack);
-	//sleep(5);
-	while (++cur < SB[0])
+	cur = 0;
+	while (SA[++cur])
 	{
-		if (SB[cur - 1] != (SB[cur] + 1))
-			return (0);
+		if (SA[cur] != (SA[cur + 1] + 1))
+			return (1);
 	}
-	return (1);
+	return (0);
 }
 
 void	ft_split_sb(int **stack)
@@ -151,21 +141,19 @@ void	ft_split_sb(int **stack)
 	cur = 1;
 	info = ft_search_not_rank(stack[B], NULL, B);
 	if (info.min > 0)
-		while (SA[1] != (info.min - 1))
+		while (ft_check_order(stack))
 			ft_modif_stack(stack, 7);
 	while (ft_check_end_split(stack[B], info, B))
 	{
-		if (SB[1] > info.mid && SB[1] > SB[ENDB] && SB[1] > SB[ENDB - 1])
+		if (SB[0] > 20 && SB[2] > info.mid && SB[2] > SB[ENDB] && SB[2] > SB[ENDB - 1])
 			ft_modif_stack(stack, 8);
-		if (SB[ENDB] > info.mid && SB[ENDB - 1] > SB[ENDB])
-			ft_modif_stack(stack, 4);
+		if (SB[0] > 3 && SB[1] > info.mid && SB[1] > SB[ENDB] && SB[1] > SB[ENDB - 1])
+			ft_modif_stack(stack, 8);
 		if (SB[ENDB] > info.mid)
 			ft_modif_stack(stack, 1);
 		else
 			ft_modif_stack(stack, 6);
 	}
-	if (ft_opti_test(stack))
-		cur = 0;
 	if (SB[0] > 4)
 		ft_split_sb(stack);
 }
@@ -189,32 +177,46 @@ int		ft_check_end(int **stack)
 
 void	ft_tidy(int **stack)
 {
-	if (SB[ENDB - 2] < SB[ENDB] && SB[ENDB - 2] > SB[ENDB - 1])
+	if (SB[ENDB - 2] > SB[ENDB - 1] && SB[ENDB - 2] > SB[ENDB])
 		ft_modif_stack(stack, 8);
-	if (SB[ENDB] < SB[ENDB - 1])
+	if (SB[ENDB - 1] > SB[ENDB - 2] && SB[ENDB - 1] > SB[ENDB])
 		ft_modif_stack(stack, 4);
-	if (SB[ENDB - 2] > SB[ENDB])
-		ft_modif_stack(stack, 8);
-	if (SB[ENDB] < SB[ENDB - 1])
-		ft_modif_stack(stack, 4);
+	if (SB[ENDB] > SB[ENDB - 1] && SB[ENDB] > SB[ENDB - 2])
+		ft_modif_stack(stack, 1);
 }
 
-void	ft_range_stack(int **stack)
+int	ft_range_num(int **stack)
+{
+	int cur;
+
+	cur = -1;
+	if (SA[ENDA] == 0)
+		return (1);
+	while (cur++ < 5)
+		if (SA[ENDA - cur] == (SA[1] + 1))
+			return (1);
+	return (0);
+}
+
+
+void	ft_range_stack(int **stack, int mid)
 {
 	if (SB[0] == 4)
 		ft_tidy(stack);
-	else if (SB[ENDB] < SB[ENDB - 1])
+	if (SB[0] == 3 && SB[ENDB] < SB[ENDB - 1])
 		ft_modif_stack(stack, 4);
 	while (SB[0] != 1)
 		ft_modif_stack(stack, 1);
-	while ((ft_check_end(stack) && SA[ENDA] == 0) || SA[1] == (SA[ENDA] - 1) ||
-			SA[1] == (SA[ENDA - 1] - 1) || SA[1] == (SA[ENDA - 2] - 1))
+	while (1)
 	{
-		if (SA[1] == (SA[ENDA - 2] - 1))
-			ft_modif_stack(stack, 2);
-		if (SA[1] == (SA[ENDA - 1] - 1))
+		if (!(ft_range_num(stack)) || !(ft_check_end(stack)))
+			break ;
+		if (SA[ENDA - 1] == (SA[1] + 1))
 			ft_modif_stack(stack, 3);
-		ft_modif_stack(stack, 5);
+		if (SA[1] == (SA[ENDA] - 1) || SA[ENDA] == 0)
+			ft_modif_stack(stack, 5);
+		else
+			ft_modif_stack(stack, 2);
 	}
 }
 
@@ -232,22 +234,14 @@ int		main(int argc, char *argv[])
 	stack = ft_params_push_swap(stack);
 	while (ft_check_end(stack))
 	{
-		ft_split_sa(stack, &mid);
+		if (SB[0] == 1)
+			ft_split_sa(stack, &mid);
 		ft_split_sb(stack);
-		ft_range_stack(stack);
-		ft_print_stack(stack);
-		/*printf("ft_split_sa\n");
-		sleep(2);
-		printf("ft_split_sb\n");
-		sleep(2);
-		printf("ft_range_stack\n");
-		ft_print_stack(stack);
-		sleep(2);*/
+		ft_range_stack(stack, mid);
 	}
 	ft_print_stack(stack);
 	return (0);
 }
-
 
 
 
