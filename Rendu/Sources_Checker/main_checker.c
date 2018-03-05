@@ -13,13 +13,31 @@
 
 #include "checker.h"
 
-int		ft_usage_ps(int **stack)
+int		ft_usage_checker(int **stack)
 {
 	ft_putendl_fd("checker: need two or more arguments", 2);
 	ft_putendl_fd("usage1: ./checker \"nb1 nb2 nb3 ...\"", 2);
 	ft_putendl_fd("usage2: ./checker nb1 nb2 nb3 ...", 2);
 	free(stack);
 	return (0);
+}
+
+char	**ft_fill_all_options(char **cmd, char *line)
+{
+	char	**ret;
+	int		y;
+
+	y = -1;
+	if (!cmd)
+		y = 0;
+	ret = (char **)malloc(sizeof(char *) * (ft_tablen(cmd) + 2));
+	while (cmd && cmd[++y])
+		ret[y] = ft_strdup(cmd[y]);
+	ret[y++] = ft_strdup(line);
+	ret[y] = NULL;
+	ft_free_tab(&cmd);
+	ft_strdel(&line);
+	return (ret);
 }
 
 int		main(int argc, char **argv)

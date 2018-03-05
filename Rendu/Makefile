@@ -23,38 +23,40 @@ NAME_PSW = push_swap
 
 C_FLAGS =  
 
-DIR_INC = Includes/
-
 DIR_LIB = Libft/
 
-DIR_CHK = Checker_src/
+DIR_INC = Includes/
 
-DIR_PSW = Push_swap_src/
+DIR_CHK = Sources_Checker/
 
-CHK_SRC = checking_checker.c fill_checker.c main_checker.c tools_checker.c \
-		  operation1_checker.c operation2_checker.c 
+DIR_PSW = Sources_PS/
 
-PSW_SRC = 	fill_pushswap.c groups_algo.c main_pushswap.c \
-			operation1_pushswap.c operation2_pushswap.c tools_pushswap.c
+DIR_SRC = Sources/
 
-SRC_CHK = $(addprefix $(DIR_CHK), $(CHK_SRC))
+SRC =	  operations_00.c operations_01.c parsing.c tools.c
 
-SRC_PSW = $(addprefix $(DIR_PSW), $(PSW_SRC))
+CHK_SRC = checking_checker.c main_checker.c  
 
-SRC = $(addprefix $(DIR_CHK), $(CHK_SRC)) $(addprefix $(DIR_PSW), $(PSW_SRC))
+PSW_SRC = checking_pushswap.c main_pushswap.c long_resolve.c \
+		  params_pushswap.c short_resolve.c
+
+SRC_CHK = $(addprefix $(DIR_CHK), $(CHK_SRC)) $(addprefix $(DIR_SRC), $(SRC))
+
+SRC_PSW = $(addprefix $(DIR_PSW), $(PSW_SRC)) $(addprefix $(DIR_SRC), $(SRC))
 
 OBJ_CHK = $(SRC_CHK:.c=.o)
 
 OBJ_PSW = $(SRC_PSW:.c=.o) 
 
-OBJ = $(SRC:.c=.o) 
+all: $(NAME_PSW) $(NAME_CHK)
 
-all: $(NAME)
-
-$(NAME): $(OBJ)
+$(NAME_PSW): $(OBJ_PSW)
 	@make -C $(DIR_LIB)
 	@$(CC) $(C_FLAGS) $(OBJ_PSW) -L $(DIR_LIB) -lft -o $(NAME_PSW) 
-	@$(CC) $(C_FLAGS) $(OBJ_CHK) -L $(DIR_LIB) -lft -o $(NAME_CHK)	
+	@echo "\033[0;32m✅️   make push_swap.\033[0m"
+
+$(NAME_CHK): $(OBJ_CHK)
+	@$(CC) $(C_FLAGS) $(OBJ_CHK) -L $(DIR_LIB) -lft -o $(NAME_CHK) 
 	@echo "\033[0;32m✅️   make checker.\033[0m"
 
 ./%.o: ./%.c

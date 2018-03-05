@@ -22,8 +22,6 @@
 # define SB (stack[B])
 # define A 0
 # define B 1
-# define C 2
-# define D 3
 
 # include "../Libft/Includes/libft.h"
 # include <stdio.h>
@@ -89,12 +87,6 @@ void		ft_rot_b(int **stack);
 void		ft_revrot_a(int **stack);
 void		ft_revrot_b(int **stack);
 
-
-int		ft_check_place_d(int **stack, int **grps);
-int		ft_check_place_c(int **stack, int **grps);
-int		ft_check_place_b(int **stack, int **grps);
-int		ft_check_place_a(int **stack, int **grps);
-int		ft_check_place(int **stack, int **grps);
 int		**ft_dup_stack(int **stack);
 void	ft_cpy_stack(int **stack, int **stack_cpy);
 int		ft_check_group(int *group, int nb);
@@ -102,7 +94,17 @@ void	ft_sort_list(int *list, int size);
 int		**ft_good_cur(int size, int size_cur);
 int		**ft_fill_grps(int **stack, int *list);
 int		**ft_params_push_swap(int **stack);
-
-
+int		ft_check_order(int **stack);
+int		ft_check_num(int **stack);
+void	ft_split_sa(int **stack, int *mid);
+int		ft_check_end(int **stack);
+int		ft_check_end_split(int *stack, t_sa info, int choice);
+void	ft_modif_stack(int **stack, int opt);
+void	ft_resolve(int **stack);
+t_sa	ft_search_not_rank(int *stack, int *ptr, int choice);
+void	ft_clean_sb(int **stack);
+void	ft_split_sb(int **stack);
+void	ft_print_stack(int **stack);
+void	ft_clean_stack(int **stack, int mid);
 
 #endif

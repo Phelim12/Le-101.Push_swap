@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   fill_checker.c                                   .::    .:/ .      .::   */
+/*   Parsing.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: clcreuso <clcreuso@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/02/19 18:52:24 by clcreuso     #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/19 18:52:24 by clcreuso    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/03/05 22:12:24 by clcreuso     #+#   ##    ##    #+#       */
+/*   Updated: 2018/03/05 22:12:24 by clcreuso    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,19 +34,17 @@ int		ft_tab_is_numeric(char **tab)
 	{
 		x = -1;
 		while (tab[y][++x])
-		{
 			if (!(ft_isdigit(tab[y][x])))
 				if ((tab[y][0] != '-' && tab[y][0] != '+') || x != 0)
 					return (0);
-		}
 	}
 	return (1);
 }
 
 int		*ft_atoi_tab(int argc, char **argv)
 {
-	int			*stack;
 	intmax_t	max;
+	int			*stack;
 	int			y;
 
 	y = -1;

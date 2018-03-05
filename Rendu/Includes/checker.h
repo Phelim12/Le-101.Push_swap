@@ -16,6 +16,8 @@
 
 # define MAXI 2147483647
 # define MINI -2147483648
+# define SA (stack[A])
+# define SB (stack[B])
 # define OP1 "pa"
 # define OP2 "pb"
 # define OP3 "sa"
