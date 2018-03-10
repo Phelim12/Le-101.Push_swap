@@ -22,6 +22,27 @@ int		ft_usage_checker(int **stack)
 	return (0);
 }
 
+void	ft_norm_free(int **stack, char **cmd, char *line)
+{
+	free(SA);
+	free(line);
+	free(stack);
+	ft_free_tab(&cmd);
+	ft_putendl_fd("Error", 2);
+}
+
+int		ft_check_line(char *line)
+{
+	if (ft_strcmp(line, "pa") && ft_strcmp(line, "pb") &&
+		ft_strcmp(line, "sa") && ft_strcmp(line, "sb") &&
+		ft_strcmp(line, "ss") && ft_strcmp(line, "ra") &&
+		ft_strcmp(line, "rb") && ft_strcmp(line, "rr") &&
+		ft_strcmp(line, "rra") && ft_strcmp(line, "rrb") &&
+		ft_strcmp(line, "rrr"))
+		return (1);
+	return (0);
+}
+
 char	**ft_fill_all_options(char **cmd, char *line)
 {
 	char	**ret;
@@ -48,11 +69,18 @@ int		main(int argc, char **argv)
 
 	stack = (int **)malloc(sizeof(int *) * (2));
 	if (argc == 1)
-		return (ft_usage_ps(stack));
+		return (ft_usage_checker(stack));
 	if (ft_fill_ps(argc, argv, &stack))
 		return (0);
-	while (get_next_line(1, &line) > 0)
+	while (get_next_line(0, &line) > 0)
+	{
+		if (ft_check_line(line))
+		{
+			ft_norm_free(stack, cmd, line);
+			return (0);
+		}
 		cmd = ft_fill_all_options(cmd, line);
+	}
 	ft_printf("%s\n", ft_checker(stack, cmd));
 	ft_free_stack(stack);
 	ft_free_tab(&cmd);

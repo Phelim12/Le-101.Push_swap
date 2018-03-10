@@ -49,13 +49,14 @@ int		*ft_new_stack(int **stack, int *list)
 		ret[cur1] = cur2;
 	}
 	ret[0] = SA[0];
+	free(SA);
 	return (ret);
 }
 
-int 	**ft_params_push_swap(int **stack)
+int		**ft_params_push_swap(int **stack)
 {
-	int		*list;
-	int		cur;
+	int *list;
+	int cur;
 
 	cur = 0;
 	SB = (int *)malloc(sizeof(int) * (stack[A][0]));
@@ -65,6 +66,7 @@ int 	**ft_params_push_swap(int **stack)
 	ft_sort_list(list, stack[A][0]);
 	SA = ft_new_stack(stack, list);
 	SB[0] = 1;
+	free(list);
 	return (stack);
 }
 
@@ -72,7 +74,7 @@ t_sa	ft_search_not_rank(int *stack, int *ptr, int choice)
 {
 	t_sa	ret;
 	int		cur1;
-	int 	cur2;
+	int		cur2;
 	int		*tab;
 
 	cur1 = 2;

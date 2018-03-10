@@ -22,23 +22,6 @@ int		ft_usage_ps(int **stack)
 	return (0);
 }
 
-void	ft_print_stack(int **stack)
-{
-	int x;
-
-	x = 0;
-	ft_printf("Pile A:\n");
-	while (stack[A] && ++x < stack[A][0])
-		ft_printf("%d  ", stack[A][x]);
-	x = 0;
-	ft_printf("\nPile B:\n");
-	while (++x < stack[B][0])
-		ft_printf("%d  ", stack[B][x]);
-	printf("\n");
-	ft_printf("\nSize A : %d\n", stack[A][0]);
-	ft_printf("\nSize B : %d\n\n\n", stack[B][0]);
-}
-
 void	ft_print_opt(int **stack, int opt)
 {
 	if (opt == 1 && SB[0] > 1)
@@ -89,6 +72,7 @@ void	ft_modif_stack(int **stack, int opt)
 int		main(int argc, char *argv[])
 {
 	int		**stack;
+	int		**test;
 
 	stack = (int **)malloc(sizeof(int *) * (2));
 	if (argc == 1)
@@ -96,11 +80,12 @@ int		main(int argc, char *argv[])
 	if (ft_fill_ps(argc, argv, &stack))
 		return (0);
 	stack = ft_params_push_swap(stack);
+	test = stack;
 	if (SA[0] > 6)
 		ft_long_resolve(stack);
 	else
 		ft_short_resolve(stack);
+	ft_free_stack(test);
+	ft_putchar(0);
 	return (0);
 }
-
-

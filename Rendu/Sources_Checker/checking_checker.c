@@ -56,7 +56,6 @@ char	*ft_checker(int **stack, char **cmd)
 		if (ft_check_option(cmd[y]))
 			return ("KO");
 		ft_edit_stack(stack, cmd[y]);
-		ft_print_stack(stack);
 	}
 	if (SB[0] > 1)
 		return ("KO");

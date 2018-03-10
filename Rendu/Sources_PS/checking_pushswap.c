@@ -48,7 +48,7 @@ int		ft_check_end(int **stack)
 		return (1);
 	while (cur++ < SA[0])
 		if (SA[cur - 1] != (SA[cur] + 1))
-			break;
+			break ;
 	if (cur == SA[0])
 		return (0);
 	return (1);

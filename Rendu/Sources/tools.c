@@ -21,8 +21,8 @@ int		ft_print_error_ps(void)
 
 void	ft_free_stack(int **stack)
 {
-	free(stack[A]);
-	free(stack[B]);
+	free(SA);
+	free(SB);
 	free(stack);
 }
 
@@ -68,4 +68,3 @@ void	ft_rev_stack(int **stack)
 		end--;
 	}
 }
-

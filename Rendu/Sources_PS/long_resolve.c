@@ -67,7 +67,7 @@ void	ft_split_sb(int **stack)
 		ft_split_sb(stack);
 }
 
-void	ft_put_away(int **stack, int mid)
+void	ft_put_away(int **stack)
 {
 	if (SB[0] == 4)
 		ft_clean_sb(stack);
@@ -99,10 +99,6 @@ void	ft_long_resolve(int **stack)
 		if (SB[0] == 1)
 			ft_split_sa(stack, &mid);
 		ft_split_sb(stack);
-		ft_put_away(stack, mid);
+		ft_put_away(stack);
 	}
 }
-
-
-
-

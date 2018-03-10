@@ -15,23 +15,23 @@
 
 CC = gcc
 
-NAME = checker
-
 NAME_CHK = checker
 
 NAME_PSW = push_swap
 
-C_FLAGS =  
+NAME_LIB = Libft/libft.a
+
+C_FLAGS = -Wall -Wextra -Werror
 
 DIR_LIB = Libft/
 
 DIR_INC = Includes/
 
-DIR_CHK = Sources_Checker/
+DIR_SRC = Sources/
 
 DIR_PSW = Sources_PS/
 
-DIR_SRC = Sources/
+DIR_CHK = Sources_Checker/
 
 SRC =	  operations_00.c operations_01.c parsing.c tools.c
 
@@ -50,14 +50,16 @@ OBJ_PSW = $(SRC_PSW:.c=.o)
 
 all: $(NAME_PSW) $(NAME_CHK)
 
-$(NAME_PSW): $(OBJ_PSW)
-	@make -C $(DIR_LIB)
+$(NAME_PSW): $(OBJ_PSW) $(NAME_LIB)
 	@$(CC) $(C_FLAGS) $(OBJ_PSW) -L $(DIR_LIB) -lft -o $(NAME_PSW) 
 	@echo "\033[0;32m✅️   make push_swap.\033[0m"
 
-$(NAME_CHK): $(OBJ_CHK)
+$(NAME_CHK): $(OBJ_CHK) $(NAME_LIB)
 	@$(CC) $(C_FLAGS) $(OBJ_CHK) -L $(DIR_LIB) -lft -o $(NAME_CHK) 
 	@echo "\033[0;32m✅️   make checker.\033[0m"
+
+$(NAME_LIB):
+	@make -C $(DIR_LIB)	
 
 ./%.o: ./%.c
 	@$(CC) $(C_FLAGS) -I $(DIR_INC) -o $@ -c $< 
@@ -65,14 +67,16 @@ $(NAME_CHK): $(OBJ_CHK)
 
 clean:
 	@make clean -C $(DIR_LIB)
-	@rm -f $(OBJ)
-	@echo "\033[38;5;202m🗑️   clean checker.\033[0m" 
+	@rm -f $(OBJ_CHK)
+	@rm -f $(OBJ_PSW)
+	@echo "\033[38;5;202m🗑️   clean objects.\033[0m" 
 
 fclean: clean
 	@make fclean -C $(DIR_LIB)
 	@rm -f $(NAME_CHK)
 	@rm -f $(NAME_PSW)
-	@echo "\033[38;5;196m🗑️   fclean checker.\033[0m" 
+	@echo "\033[38;5;196m🗑️   fclean checker.\033[0m"
+	@echo "\033[38;5;196m🗑️   fclean push_swap.\033[0m"
 
 re: fclean all
 	
